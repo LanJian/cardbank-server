@@ -7,16 +7,36 @@ ObjectId = mongoose.ObjectId
 ## Schema
 ##########################################################################
 schema = new Schema
-  firstName      : String
-  lastName       : String
-  email          : String
-  password       : String
+  email:
+    type     : String
+    index    : true
+    required : true
   salt           : String
   hashedPassword : String
+  myCards        : [ObjectId]
+  cards          : [ObjectId]
+
+
+schema.virtual('password').set (password) ->
+  @_password = password
+  @salt = randomSalt()
+  @hashedPassword = encryptPassword password
+
+
+schema.virtual('password').get  ->
+  @_password
+
+
+schema.methods.randomSalt = ->
+  # TODO: actually generate it
+  "1111111111"
+
+
+schema.methods.encryptPassword = ->
+  
 
 
 ##########################################################################
 ## Model
 ##########################################################################
-console.log 'user model'
 module.exports = mongoose.model 'User', schema

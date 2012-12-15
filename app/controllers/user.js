@@ -1,8 +1,6 @@
-var User, UserController, randomSalt;
+var User, UserController;
 
 User = require('../models/user');
-
-randomSalt = function() {};
 
 UserController = {
   index: function(req, res) {
@@ -14,10 +12,9 @@ UserController = {
     console.log(req.body);
     body = req.body;
     user = new User({
-      firstName: body.firstName,
-      lastName: body.lastName,
       email: body.email,
-      password: body.password
+      password: body.password,
+      salt: randomSalt()
     });
     return user.save(function(err, val) {
       if (err) {

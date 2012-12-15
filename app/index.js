@@ -12,15 +12,29 @@ require('express-resource');
 
 app = express();
 
-app.use(assets());
+app.configure('dev', function() {
+  return app.set('db-name', "dummy");
+});
 
-app.use(express.static(process.cwd() + '/public'));
+app.configure('test', function() {
+  return app.set('db-name', "cardbank-test");
+});
 
-app.set('view engine', 'jade');
+app.configure('prod', function() {
+  return app.set('db-name', "cardbank-prod");
+});
 
-app.use(express.bodyParser());
+app.configure(function() {
+  app.use(assets());
+  app.use(express.static(process.cwd() + '/public'));
+  app.set('view engine', 'jade');
+  app.use(express.bodyParser());
+  app.use(express.cookieParser());
+  app.use(express.session());
+  return app.use(express.logger());
+});
 
-app.db = mongoose.connect('localhost', 'dummy');
+app.db = mongoose.connect('localhost', app.set('db-name'));
 
 app.resource('users', require('./controllers/user'));
 

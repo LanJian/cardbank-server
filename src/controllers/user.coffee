@@ -1,10 +1,5 @@
 User = require '../models/user'
 
-#------------------------------------------------------------------------
-# Helpers
-#------------------------------------------------------------------------
-randomSalt = ->
-  
 
 
 UserController =
@@ -19,10 +14,9 @@ UserController =
     console.log req.body
     body = req.body
     user = new User
-      firstName: body.firstName
-      lastName: body.lastName
       email: body.email
       password: body.password
+      salt: randomSalt()
 
     user.save (err, val) ->
       if err
