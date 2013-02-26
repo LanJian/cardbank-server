@@ -1,38 +1,47 @@
+bcrypt = require 'bcrypt'
 mongoose = require 'mongoose'
 Schema = mongoose.Schema
-ObjectId = mongoose.ObjectId
+ObjectId = Schema.ObjectId
 
 
 ##########################################################################
 ## Schema
 ##########################################################################
 schema = new Schema
-  email:
+  email :
     type     : String
     index    : true
     required : true
-  salt           : String
-  hashedPassword : String
+  hashedPassword :
+    type    : String
+    require : true
   myCards        : [ObjectId]
   cards          : [ObjectId]
 
 
+## Virtuals
 schema.virtual('password').set (password) ->
   @_password = password
-  @salt = randomSalt()
-  @hashedPassword = encryptPassword password
+  @hashedPassword = @encryptPassword password
 
 
 schema.virtual('password').get  ->
   @_password
 
 
-schema.methods.randomSalt = ->
-  # TODO: actually generate it
-  "1111111111"
+schema.virtual('id').get ->
+  console.log "get ID: ", @_id.toHexString()
+  @_id.toHexString()
 
 
-schema.methods.encryptPassword = ->
+## Methods
+schema.methods.encryptPassword = (password) ->
+  salt = bcrypt.genSaltSync 10
+  bcrypt.hashSync password, salt
+
+
+schema.methods.authenticate = (password) ->
+  bcrypt.compareSync password, @hashedPassword
   
 
 

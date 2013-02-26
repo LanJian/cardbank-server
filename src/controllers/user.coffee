@@ -7,6 +7,13 @@ UserController =
   # Actions
   #------------------------------------------------------------------------
   index: (req, res) ->
+    if req.session.count
+      console.log ' fount'
+      req.session.count = req.session.count + 1
+    else
+      console.log 'not fount'
+      req.session.count = 1
+    console.log req.session
     res.send "index users"
 
   create: (req, res) ->
@@ -16,7 +23,8 @@ UserController =
     user = new User
       email: body.email
       password: body.password
-      salt: randomSalt()
+      myCards: []
+      cards: []
 
     user.save (err, val) ->
       if err
@@ -32,13 +40,15 @@ UserController =
 
   load: (req, id, fn) ->
     res = req.res
-    User.find {_id: id}, (err, data) ->
-      if err
-        res.send {error: err}
-      else
-        fn null, data
+    if req.session.userId and req.session.userId == id
+      User.findOne {_id: req.session.userId}, (err, data) ->
+        if err
+          res.send {error: err}
+        else
+          fn null, data
+    else
+      res.send "not authorized"
 
 
-console.log UserController
 module.exports = UserController
 
