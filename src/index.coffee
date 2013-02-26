@@ -42,7 +42,8 @@ app.configure ->
   app.use express.logger()
 
 # MongoDB
-app.db = mongoose.connect app.set('db-host'), app.set('db-name')
+#app.db = mongoose.connect app.set('db-host'), app.set('db-name')
+app.db = mongoose.connect app.set('db-url')
 
 
 # Resources
