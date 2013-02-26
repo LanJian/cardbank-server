@@ -11,15 +11,18 @@ app = express()
 # Environments
 app.configure 'dev', ->
   app.set 'db-host', "localhost"
-  app.set 'db-name', "dummy"
+  app.set 'db-name', "cardbank-dev"
+  app.set 'db-url', "mongodb://localhost/cardbank-dev"
 
 app.configure 'test', ->
   app.set 'db-host', "localhost"
   app.set 'db-name', "cardbank-test"
+  app.set 'db-url', "mongodb://localhost/cardbank-test"
 
 app.configure 'prod', ->
   app.set 'db-host', "localhost"
   app.set 'db-name', "cardbank-prod"
+  app.set 'db-url', "mongodb://heroku:79b088d746a3864e99b9b3818619c343@linus.mongohq.com:10071/app12420988"
 
 app.configure ->
   # Add Connect Assets
@@ -31,7 +34,7 @@ app.configure ->
   app.use express.bodyParser()
   app.use express.cookieParser()
   store = new MongoStore
-    db        : app.set('db-name')
+    url       : app.set('db-url')
     stringify : false
   app.use express.session
     store  : store
