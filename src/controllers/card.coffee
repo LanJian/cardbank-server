@@ -16,8 +16,9 @@ CardController =
   create: (req, res) ->
     if not req.user
       res.send 'not authenticated'
-    card = req.body
-    card.userId = req.user.id
+    body = req.body
+    body.userId = req.user.id
+    card = new Card body
     card.save (err, val) ->
       if err
         res.send {err: err}

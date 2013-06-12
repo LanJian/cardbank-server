@@ -15,8 +15,8 @@ schema = new Schema
   hashedPassword :
     type    : String
     require : true
-  myCards        : [ObjectId]
-  cards          : [ObjectId]
+  myCards  : [ObjectId]
+  contacts : [ObjectId]
 
 
 ## Virtuals

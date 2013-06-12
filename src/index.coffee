@@ -39,6 +39,8 @@ app.configure ->
   app.use express.session
     store  : store
     secret : 'topsecret'
+    cookie :
+      maxAge : 60 * 60 * 1000
   app.use express.logger()
 
 # MongoDB
@@ -49,7 +51,9 @@ app.db = mongoose.connect app.set('db-url')
 # Resources
 users = app.resource 'users', require('./controllers/user')
 cards = app.resource 'cards', require('./controllers/card')
+contacts = app.resource 'contacts', require('./controllers/contact')
 users.add cards
+users.add contacts
 
 sessions = app.resource 'sessions', require('./controllers/session')
 

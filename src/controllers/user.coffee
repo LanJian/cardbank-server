@@ -40,6 +40,7 @@ UserController =
 
   load: (req, id, fn) ->
     res = req.res
+    console.log 'req.session', req.session
     if req.session.userId and req.session.userId == id
       User.findOne {_id: req.session.userId}, (err, data) ->
         if err
