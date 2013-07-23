@@ -22,7 +22,8 @@ app.configure 'test', ->
 app.configure 'prod', ->
   app.set 'db-host', "localhost"
   app.set 'db-name', "cardbank-prod"
-  app.set 'db-url', "mongodb://heroku:79b088d746a3864e99b9b3818619c343@linus.mongohq.com:10071/app12420988"
+  #app.set 'db-url', "mongodb://heroku:79b088d746a3864e99b9b3818619c343@linus.mongohq.com:10071/app12420988"
+  app.set 'db-url', process.env.MONGOLAB_URI
 
 app.configure ->
   # Add Connect Assets
