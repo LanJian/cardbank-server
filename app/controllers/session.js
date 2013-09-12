@@ -17,9 +17,15 @@ SessionController = {
       }
       if (user && user.authenticate(body.password)) {
         req.session.userId = user.id;
-        return res.send("authenticated " + body.email);
+        console.log("********************* session");
+        console.log(req.session);
+        return res.send({
+          userId: user.id
+        });
       } else {
-        return res.send("failed to authenticate " + body.email);
+        return res.send({
+          err: "failed to authenticate " + body.email
+        });
       }
     });
   }

@@ -12,6 +12,10 @@ schema = new Schema({
   lastName: String,
   email: String,
   phone: String,
+  imageUrl: {
+    type: String,
+    "default": ""
+  },
   userId: {
     type: ObjectId,
     require: true

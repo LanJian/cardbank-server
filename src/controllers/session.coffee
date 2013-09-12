@@ -11,9 +11,11 @@ SessionController =
         res.send {err: err}
       if user and user.authenticate body.password
         req.session.userId = user.id
-        res.send "authenticated #{body.email}"
+        console.log "********************* session"
+        console.log req.session
+        res.send {userId: user.id}
       else
-        res.send "failed to authenticate #{body.email}"
+        res.send {err: "failed to authenticate #{body.email}"}
 
 module.exports = SessionController
 

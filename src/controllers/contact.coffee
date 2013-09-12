@@ -13,7 +13,6 @@ ContactController =
       if err
         res.send {err: err}
       res.send data
-        
 
   create: (req, res) ->
     if not req.user
