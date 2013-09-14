@@ -42,7 +42,7 @@ schema.methods.encryptPassword = (password) ->
 
 schema.methods.authenticate = (password) ->
   bcrypt.compareSync password, @hashedPassword
-  
+
 
 
 ##########################################################################

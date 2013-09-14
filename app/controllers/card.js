@@ -19,12 +19,13 @@ CardController = {
     });
   },
   create: function(req, res) {
-    var body, card;
+    var body, card, user;
     if (!req.user) {
       res.send('not authenticated');
     }
+    user = req.user;
     body = req.body;
-    body.userId = req.user.id;
+    body.userId = user.id;
     card = new Card(body);
     return card.save(function(err, val) {
       if (err) {
@@ -32,6 +33,14 @@ CardController = {
           err: err
         });
       }
+      user.myCards.push(card.id);
+      user.save(function(err) {
+        if (err) {
+          return res.send({
+            err: err
+          });
+        }
+      });
       return res.send(val);
     });
   },
