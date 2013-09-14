@@ -12,10 +12,14 @@ CardController = {
     }, function(err, data) {
       if (err) {
         res.send({
+          status: 'failure',
           err: err
         });
       }
-      return res.send(data);
+      return res.send({
+        status: 'success',
+        cards: data
+      });
     });
   },
   create: function(req, res) {
@@ -30,6 +34,7 @@ CardController = {
     return card.save(function(err, val) {
       if (err) {
         res.send({
+          status: 'failure',
           err: err
         });
       }
@@ -37,11 +42,15 @@ CardController = {
       user.save(function(err) {
         if (err) {
           return res.send({
+            status: 'failure',
             err: err
           });
         }
       });
-      return res.send(val);
+      return res.send({
+        status: 'success',
+        card: val
+      });
     });
   },
   show: function(req, res) {

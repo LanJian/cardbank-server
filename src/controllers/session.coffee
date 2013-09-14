@@ -11,8 +11,6 @@ SessionController =
         res.send {err: err}
       if user and user.authenticate body.password
         req.session.userId = user.id
-        console.log "********************* session"
-        console.log req.session
         res.send {userId: user.id}
       else
         res.send {err: "failed to authenticate #{body.email}"}

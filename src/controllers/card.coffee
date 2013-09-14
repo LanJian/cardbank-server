@@ -9,8 +9,8 @@ CardController =
     Card.find {userId: req.user.id}, null,
       {sort: ['lastName', 'descending']}, (err, data) ->
         if err
-          res.send {err: err}
-        res.send data
+          res.send {status: 'failure', err: err}
+        res.send {status: 'success', cards: data}
 
   create: (req, res) ->
     if not req.user
@@ -21,13 +21,13 @@ CardController =
     card = new Card body
     card.save (err, val) ->
       if err
-        res.send {err: err}
+        res.send {status: 'failure', err: err}
       # add card id to user cards
       user.myCards.push card.id
       user.save (err) ->
         if err
-          res.send {err: err}
-      res.send val
+          res.send {status: 'failure', err: err}
+      res.send {status: 'success', card: val}
 
 
   show: (req, res) ->

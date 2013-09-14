@@ -17,8 +17,6 @@ SessionController = {
       }
       if (user && user.authenticate(body.password)) {
         req.session.userId = user.id;
-        console.log("********************* session");
-        console.log(req.session);
         return res.send({
           userId: user.id
         });

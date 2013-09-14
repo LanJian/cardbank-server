@@ -9,10 +9,10 @@ ContactController =
   index: (req, res) ->
     if not req.user
       res.send 'not authenticated'
-    Card.find {userId: {$in: req.user.contacts}}, (err, data) ->
+    Card.find {_id: {$in: req.user.contacts}}, (err, data) ->
       if err
         res.send {err: err}
-      res.send data
+      res.send {status: 'success', contacts: data}
 
   create: (req, res) ->
     if not req.user

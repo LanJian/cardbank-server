@@ -11,7 +11,7 @@ ContactController = {
       res.send('not authenticated');
     }
     return Card.find({
-      userId: {
+      _id: {
         $in: req.user.contacts
       }
     }, function(err, data) {
@@ -20,7 +20,10 @@ ContactController = {
           err: err
         });
       }
-      return res.send(data);
+      return res.send({
+        status: 'success',
+        contacts: data
+      });
     });
   },
   create: function(req, res) {
