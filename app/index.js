@@ -30,7 +30,7 @@ app.configure('test', function() {
 app.configure('prod', function() {
   app.set('db-host', "localhost");
   app.set('db-name', "cardbank-prod");
-  return app.set('db-url', "mongodb://heroku:79b088d746a3864e99b9b3818619c343@linus.mongohq.com:10071/app12420988");
+  return app.set('db-url', process.env.MONGOLAB_URI);
 });
 
 app.configure(function() {
