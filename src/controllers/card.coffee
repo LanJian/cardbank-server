@@ -14,7 +14,7 @@ CardController =
 
   create: (req, res) ->
     if not req.user
-      res.send 'not authenticated'
+      res.send {status: 'failure', err: 'not authenticated'}
     user = req.user
     body = req.body
     body.userId = user.id
@@ -30,17 +30,17 @@ CardController =
       res.send {status: 'success', card: val}
 
 
-  show: (req, res) ->
-    res.send req.card
+  #show: (req, res) ->
+    #res.send req.card
 
 
-  load: (req, id, fn) ->
-    res = req.res
-    Card.findOne {_id: id, userId: req.user.id}, (err, data) ->
-      if err
-        res.send {error: err}
-      else
-        fn null, data
+  #load: (req, id, fn) ->
+    #res = req.res
+    #Card.findOne {_id: id, userId: req.user.id}, (err, data) ->
+      #if err
+        #res.send {error: err}
+      #else
+        #fn null, data
 
 
 module.exports = CardController

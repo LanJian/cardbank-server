@@ -1,26 +1,31 @@
 User = require '../models/user'
-Card = require '../models/card'
 
 
-ContactController =
+ReferralController =
   #------------------------------------------------------------------------
   # Actions
   #------------------------------------------------------------------------
+
+  # Gets all 
   index: (req, res) ->
     if not req.user
       res.send {status: 'failure', err: 'not authenticated'}
-    Card.find {_id: {$in: req.user.contacts}}, (err, data) ->
+    Referral.find {referredTo: req.user.id}, (err, data) ->
       if err
         res.send {err: err}
-      res.send {status: 'success', contacts: data}
+      res.send {status: 'success', referrals: data}
 
   create: (req, res) ->
     if not req.user
       res.send {status: 'failure', err: 'not authenticated'}
-    User.update {_id: req.user.id}, {$addToSet: {contacts: req.body.cardId}}, (err, val) ->
+    user = req.user
+    body = req.body
+    body.referredFrom = user.id
+    referral = new Referral body
+    referral.save (err, val) ->
       if err
-        res.send {err: err}
-      res.send {status: 'success'}
+        res.send {status: 'failure', err: err}
+      res.send {status: 'success', referral: val}
 
 
   #show: (req, res) ->
@@ -36,5 +41,5 @@ ContactController =
         #fn null, data
 
 
-module.exports = ContactController
+module.exports = ReferralController
 
