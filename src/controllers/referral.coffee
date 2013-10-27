@@ -1,4 +1,6 @@
 User = require '../models/user'
+Card = require '../models/card'
+Referral = require '../models/referral'
 
 
 ReferralController =
@@ -6,14 +8,17 @@ ReferralController =
   # Actions
   #------------------------------------------------------------------------
 
-  # Gets all 
+  # Gets all cards referred to the user
   index: (req, res) ->
     if not req.user
       res.send {status: 'failure', err: 'not authenticated'}
-    Referral.find {referredTo: req.user.id}, (err, data) ->
-      if err
-        res.send {err: err}
-      res.send {status: 'success', referrals: data}
+    Referral.find {referredTo: req.user.id}, 'cardId', (err, data) ->
+      if err then res.send {err: err}
+      cardIds = data.map (d) -> d.cardId
+      Card.find {_id: {$in: cardIds}}, (err, cards) ->
+        if err then res.send {err: err}
+        res.send {status: 'success', cards: cards}
+
 
   create: (req, res) ->
     if not req.user
@@ -25,20 +30,7 @@ ReferralController =
     referral.save (err, val) ->
       if err
         res.send {status: 'failure', err: err}
-      res.send {status: 'success', referral: val}
-
-
-  #show: (req, res) ->
-    #res.send req.card
-
-
-  #load: (req, id, fn) ->
-    #res = req.res
-    #Card.findOne {_id: id, userId: req.user.id}, (err, data) ->
-      #if err
-        #res.send {error: err}
-      #else
-        #fn null, data
+      res.send {status: 'success'}
 
 
 module.exports = ReferralController

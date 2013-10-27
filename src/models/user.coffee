@@ -10,11 +10,13 @@ ObjectId = Schema.ObjectId
 schema = new Schema
   email :
     type     : String
-    index    : true
+    index    :
+      unique : true
+      dropDups: true
     required : true
   hashedPassword :
     type    : String
-    require : true
+    required : true
   myCards  : [ObjectId]
   contacts : [ObjectId]
 
@@ -30,7 +32,6 @@ schema.virtual('password').get  ->
 
 
 schema.virtual('id').get ->
-  console.log "get ID: ", @_id.toHexString()
   @_id.toHexString()
 
 

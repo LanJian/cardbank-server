@@ -8,12 +8,13 @@ SessionController =
     body = req.body
     User.findOne {email: body.email}, (err, user) ->
       if err
-        res.send {err: err}
+        res.send {status: 'failure', err: err}
       if user and user.authenticate body.password
         req.session.userId = user.id
-        res.send {userId: user.id}
+        console.log "sessionId", req.sessionID
+        res.send {status: 'success', userId: user.id, sessionId: encodeURIComponent req.sessionID}
       else
-        res.send {err: "failed to authenticate #{body.email}"}
+        res.send {status: 'failure', err: "failed to authenticate #{body.email}"}
 
 module.exports = SessionController
 

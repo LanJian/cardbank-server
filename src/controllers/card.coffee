@@ -12,35 +12,40 @@ CardController =
           res.send {status: 'failure', err: err}
         res.send {status: 'success', cards: data}
 
+
   create: (req, res) ->
+    console.log "body", req.body
     if not req.user
       res.send {status: 'failure', err: 'not authenticated'}
     user = req.user
     body = req.body
     body.userId = user.id
     card = new Card body
-    card.save (err, val) ->
-      if err
-        res.send {status: 'failure', err: err}
+    card.save (err) ->
+      if err then res.send {status: 'failure', err: err}
       # add card id to user cards
       user.myCards.push card.id
       user.save (err) ->
-        if err
-          res.send {status: 'failure', err: err}
-      res.send {status: 'success', card: val}
+        if err then res.send {status: 'failure', err: err}
+        res.send {status: 'success'}
 
 
-  #show: (req, res) ->
-    #res.send req.card
+  update: (req, res) ->
+    delete req.body._id
+    req.card.update req.body, (err, numAffected, raw) ->
+      if err then res.send {status: 'failure', err: err}
+      res.send {status: 'success'}
 
 
-  #load: (req, id, fn) ->
-    #res = req.res
-    #Card.findOne {_id: id, userId: req.user.id}, (err, data) ->
-      #if err
-        #res.send {error: err}
-      #else
-        #fn null, data
+  load: (req, id, fn) ->
+    if not req.user
+      res.send {status: 'failure', err: 'not authenticated'}
+    res = req.res
+    Card.findOne {_id: id, userId: req.user.id}, (err, data) ->
+      if err
+        res.send {status: 'failure', err: err}
+      else
+        fn null, data
 
 
 module.exports = CardController

@@ -37,11 +37,12 @@ app.configure ->
   store = new MongoStore
     url       : app.set('db-url')
     stringify : false
+    clear_interval: 60
   app.use express.session
     store  : store
     secret : 'topsecret'
     cookie :
-      maxAge : 60 * 60 * 1000
+      maxAge : 5 * 60 * 1000
   app.use express.logger()
 
 # MongoDB
@@ -53,8 +54,10 @@ app.db = mongoose.connect app.set('db-url')
 users = app.resource 'users', require('./controllers/user')
 cards = app.resource 'cards', require('./controllers/card')
 contacts = app.resource 'contacts', require('./controllers/contact')
+referrals = app.resource 'referrals', require('./controllers/referral')
 users.add cards
 users.add contacts
+users.add referrals
 
 sessions = app.resource 'sessions', require('./controllers/session')
 

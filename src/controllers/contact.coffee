@@ -11,16 +11,25 @@ ContactController =
       res.send {status: 'failure', err: 'not authenticated'}
     Card.find {_id: {$in: req.user.contacts}}, (err, data) ->
       if err
-        res.send {err: err}
-      res.send {status: 'success', contacts: data}
+        res.send {status: 'failure', err: err}
+      res.send {status: 'success', cards: data}
 
   create: (req, res) ->
     if not req.user
       res.send {status: 'failure', err: 'not authenticated'}
-    User.update {_id: req.user.id}, {$addToSet: {contacts: req.body.cardId}}, (err, val) ->
+    card = req.body
+    console.log 'card', card
+    # Add the contact to the current user
+    User.update {_id: req.user.id}, {$addToSet: {contacts: card._id}}, (err, val) ->
       if err
-        res.send {err: err}
-      res.send {status: 'success'}
+        console.log '**err**', err
+        res.send {status: 'failure', err: err}
+      # Now add current user's first(default) card to the other person
+      console.log 'userId', card.userId
+      User.update {_id: card.userId}, {$addToSet: {contacts: req.user.myCards[0]}}, (err, val) ->
+        if err
+          res.send {status: 'failure', err: err}
+        res.send {status: 'success'}
 
 
   #show: (req, res) ->

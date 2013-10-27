@@ -1,5 +1,5 @@
 User = require '../models/user'
-
+Card = require '../models/card'
 
 
 UserController =
@@ -16,6 +16,7 @@ UserController =
     console.log req.session
     res.send "index users"
 
+
   create: (req, res) ->
     console.log "create user"
     console.log req.body
@@ -27,10 +28,24 @@ UserController =
       cards: []
 
     user.save (err, val) ->
-      if err
-        console.log 'error: ',  err
-        res.send err
-      res.send val
+      if err then res.send {status: 'failure', err: err}
+      # create a default card
+      card = new Card
+        firstName: 'Your'
+        lastName: 'Name'
+        email: 'Your Email'
+        phone: 'Your Phone'
+        imageUrl: '0'
+        userId: user.id
+      card.save (err) ->
+        if err then res.send {status: 'failure', err: err}
+        # add card id to user cards
+        user.myCards.push card.id
+        user.save (err) ->
+          if err then res.send {status: 'failure', err: err}
+          console.log "sessionId", req.sessionID
+          req.session.userId = user.id
+          res.send {status: 'success', userId: user.id, sessionId: encodeURIComponent req.sessionID}
 
 
   show: (req, res) ->
@@ -40,15 +55,26 @@ UserController =
 
   load: (req, id, fn) ->
     res = req.res
-    console.log 'req.session', req.session
-    if req.session.userId and req.session.userId == id
-      User.findOne {_id: req.session.userId}, (err, data) ->
-        if err
-          res.send {error: err}
-        else
-          fn null, data
-    else
-      res.send "not authorized"
+    req.sessionID = unescape req.query.sessionId
+    console.log "query.sessionId", req.query.sessionId
+    console.log "sessionId", req.sessionID
+    # Grab the session ourselves
+    req.sessionStore.get req.sessionID, (err, data) ->
+      if err
+        req.mySession = {}
+      else
+        req.mySession = data
+      console.log "mySession", req.mySession
+      if req.mySession.userId and req.mySession.userId == id
+        User.findOne {_id: req.mySession.userId}, (err, data) ->
+          if err
+            res.send {status: 'failure', err: err}
+          else
+            fn null, data
+      else
+        res.send {status: 'failure', err: 'not authenticated'}
+
+  
 
 
 module.exports = UserController
