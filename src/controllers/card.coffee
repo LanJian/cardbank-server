@@ -10,11 +10,10 @@ CardController =
       {sort: ['lastName', 'descending']}, (err, data) ->
         if err
           res.send {status: 'failure', err: err}
-        res.send {status: 'success', cards: data}
+        res.send {status: 'success', updatedAt: req.user.updatedAt, cards: data}
 
 
   create: (req, res) ->
-    console.log "body", req.body
     if not req.user
       res.send {status: 'failure', err: 'not authenticated'}
     user = req.user
@@ -31,10 +30,16 @@ CardController =
 
 
   update: (req, res) ->
+    if not req.user
+      res.send {status: 'failure', err: 'not authenticated'}
     delete req.body._id
+    user = req.user
     req.card.update req.body, (err, numAffected, raw) ->
       if err then res.send {status: 'failure', err: err}
-      res.send {status: 'success'}
+      # force a save so we updated the updatedAt field
+      user.save (err) ->
+        if err then res.send {status: 'failure', err: err}
+        res.send {status: 'success'}
 
 
   load: (req, id, fn) ->

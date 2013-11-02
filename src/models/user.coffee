@@ -19,6 +19,12 @@ schema = new Schema
     required : true
   myCards  : [ObjectId]
   contacts : [ObjectId]
+  createdAt :
+    type : Date
+    default : Date.now
+  updatedAt :
+    type : Date
+    default : Date.now
 
 
 ## Virtuals
@@ -43,6 +49,12 @@ schema.methods.encryptPassword = (password) ->
 
 schema.methods.authenticate = (password) ->
   bcrypt.compareSync password, @hashedPassword
+
+
+schema.pre 'save', (next) ->
+  console.log '***************** pre save ********************'
+  @updatedAt = Date.now()
+  next()
 
 
 

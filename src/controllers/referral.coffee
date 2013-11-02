@@ -33,5 +33,24 @@ ReferralController =
       res.send {status: 'success'}
 
 
+  delete: (req, res) ->
+    if not req.user
+      res.send {status: 'failure', err: 'not authenticated'}
+    req.referral.remove (err, data) ->
+      if err
+        res.send {status: 'failure', err: err}
+      res.send {status: 'success'}
+
+  load: (req, id, fn) ->
+    if not req.user
+      res.send {status: 'failure', err: 'not authenticated'}
+    res = req.res
+    Referral.findOne {_id: id, referredTo: req.user.id}, (err, data) ->
+      if err
+        res.send {status: 'failure', err: err}
+      else
+        fn null, data
+
+
 module.exports = ReferralController
 

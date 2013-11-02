@@ -12,7 +12,7 @@ ContactController =
     Card.find {_id: {$in: req.user.contacts}}, (err, data) ->
       if err
         res.send {status: 'failure', err: err}
-      res.send {status: 'success', cards: data}
+      res.send {status: 'success', updatedAt: req.user.updatedAt, cards: data}
 
   create: (req, res) ->
     if not req.user

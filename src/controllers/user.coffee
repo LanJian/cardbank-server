@@ -74,7 +74,6 @@ UserController =
       else
         res.send {status: 'failure', err: 'not authenticated'}
 
-  
 
 
 module.exports = UserController
