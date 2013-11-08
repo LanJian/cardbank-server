@@ -48,11 +48,6 @@ UserController =
           res.send {status: 'success', userId: user.id, sessionId: encodeURIComponent req.sessionID}
 
 
-  show: (req, res) ->
-    console.log "show user #{req.params.user}"
-    res.send req.user
-
-
   load: (req, id, fn) ->
     res = req.res
     req.sessionID = unescape req.query.sessionId

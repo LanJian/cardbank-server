@@ -47,6 +47,22 @@ test = (callback) ->
     log err.message, red
     log 'Mocha is not installed - try npm install mocha -g', red
 
+dropTestDB = (callback) ->
+  options = [
+    'cardbank-test'
+    '--eval'
+    "db.dropDatabase()"
+  ]
+  try
+    cmd = which.sync 'mongo'
+    mongo = spawn cmd, options
+    mongo.stdout.pipe process.stdout
+    mongo.stderr.pipe process.stderr
+    mongo.on 'exit', (status) -> callback?() if status is 0
+  catch err
+    log err.message, red
+    log 'Failed to drop test database', red
+
 task 'docs', 'Generate annotated source code with Docco', ->
   fs.readdir 'src', (err, contents) ->
     files = ("src/#{file}" for file in contents when /\.coffee$/.test file)
@@ -65,10 +81,10 @@ task 'build', ->
   build -> log ":)", green
 
 task 'spec', 'Run Mocha tests', ->
-  build -> test -> log ":)", green
+  build -> dropTestDB -> test -> log ":)", green
 
 task 'test', 'Run Mocha tests', ->
-  build -> test -> log ":)", green
+  build -> dropTestDB -> test -> log ":)", green
 
 task 'dev', 'start dev env', ->
   # watch_coffee
