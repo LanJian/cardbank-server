@@ -9,21 +9,14 @@ require 'express-resource'
 app = express()
 
 # Environments
-app.configure 'dev', ->
-  app.set 'db-host', "localhost"
-  app.set 'db-name', "cardbank-dev"
-  app.set 'db-url', "mongodb://localhost/cardbank-dev"
-
-app.configure 'test', ->
-  app.set 'db-host', "localhost"
-  app.set 'db-name', "cardbank-test"
-  app.set 'db-url', "mongodb://localhost/cardbank-test"
-
-app.configure 'prod', ->
-  app.set 'db-host', "localhost"
-  app.set 'db-name', "cardbank-prod"
-  #app.set 'db-url', "mongodb://heroku:79b088d746a3864e99b9b3818619c343@linus.mongohq.com:10071/app12420988"
-  app.set 'db-url', process.env.MONGOLAB_URI
+# DB config
+config = require '../config'
+for k,v of config
+  app.configure k, ->
+    db = v['db']
+    app.set 'db-host', db['host']
+    app.set 'db-name', db['name']
+    app.set 'db-url', db['url']
 
 app.configure ->
   # Add Connect Assets
@@ -65,3 +58,5 @@ sessions = app.resource 'sessions', require('./controllers/session')
 port = process.env.PORT or process.env.VMC_APP_PORT or 3000
 # Start Server
 app.listen port, -> console.log "Listening on #{port}\nPress CTRL-C to stop server."
+
+module.exports = app

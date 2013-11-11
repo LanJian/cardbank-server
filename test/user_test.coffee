@@ -1,10 +1,11 @@
 req = require 'request'
-
-# TODO: put this in config
-host = 'http://localhost:3000'
+helper = require './test_helper'
 
 
-describe 'POST /users', ->
+host = helper.host
+
+# Users
+describe 'Create user', ->
   user =
     email: 'test@gmail.com'
     password: 'mypassword'
@@ -18,7 +19,7 @@ describe 'POST /users', ->
       done()
 
   it 'is successful', (done) ->
-    response.statusCode.should.equal 200
+    response.should.have.status 200
     res.should.have.property 'status'
     res.status.should.equal 'success'
     done()
@@ -32,6 +33,7 @@ describe 'POST /users', ->
     query = {sessionId: res.sessionId}
     req.get "#{host}/users/#{res.userId}/cards", qs: query, (e, r, b) ->
       cardRes = JSON.parse r.body
-      cardRes.should.have.property 'cards'
-      cardRes.cards.should.not.be.empty
+      cardRes.should.have.property('cards').with.lengthOf(1)
       done()
+
+

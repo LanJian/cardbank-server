@@ -26,6 +26,7 @@
     , "request": "*"
     , "supervisor": "*"
     , "docco": "*"
+    , "mongodb": "*"
   }, 
   "engines": {
     "node": "0.8.x",

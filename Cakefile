@@ -81,10 +81,10 @@ task 'build', ->
   build -> log ":)", green
 
 task 'spec', 'Run Mocha tests', ->
-  build -> dropTestDB -> test -> log ":)", green
+  build -> test -> log ":)", green
 
 task 'test', 'Run Mocha tests', ->
-  build -> dropTestDB -> test -> log ":)", green
+  build -> test -> log ":)", green
 
 task 'dev', 'start dev env', ->
   # watch_coffee

@@ -10,8 +10,6 @@ ReferralController =
 
   # Gets all cards referred to the user
   index: (req, res) ->
-    if not req.user
-      res.send {status: 'failure', err: 'not authenticated'}
     Referral.find {referredTo: req.user.id}, 'cardId', (err, data) ->
       if err then res.send {err: err}
       cardIds = data.map (d) -> d.cardId
@@ -21,32 +19,29 @@ ReferralController =
 
 
   create: (req, res) ->
-    if not req.user
-      res.send {status: 'failure', err: 'not authenticated'}
     user = req.user
     body = req.body
     body.referredFrom = user.id
     referral = new Referral body
     referral.save (err, val) ->
       if err
+        res.status 500
         res.send {status: 'failure', err: err}
       res.send {status: 'success'}
 
 
   delete: (req, res) ->
-    if not req.user
-      res.send {status: 'failure', err: 'not authenticated'}
     req.referral.remove (err, data) ->
       if err
+        res.status 500
         res.send {status: 'failure', err: err}
       res.send {status: 'success'}
 
   load: (req, id, fn) ->
-    if not req.user
-      res.send {status: 'failure', err: 'not authenticated'}
     res = req.res
     Referral.findOne {_id: id, referredTo: req.user.id}, (err, data) ->
       if err
+        res.status 500
         res.send {status: 'failure', err: err}
       else
         fn null, data
