@@ -52,6 +52,7 @@ schema.methods.authenticate = (password) ->
 
 
 schema.pre 'save', (next) ->
+  console.log '&^&^&%$&*# presave 7839274'
   @updatedAt = Date.now()
   next()
 

@@ -36,6 +36,8 @@ test = (callback) ->
     'should'
     '--require'
     './server'
+    '--reporter'
+    'nyan'
   ]
   try
     cmd = which.sync 'mocha' 
@@ -81,10 +83,10 @@ task 'build', ->
   build -> log ":)", green
 
 task 'spec', 'Run Mocha tests', ->
-  build -> test -> log ":)", green
+  build -> test -> dropTestDB -> log ":)", green
 
 task 'test', 'Run Mocha tests', ->
-  build -> test -> log ":)", green
+  build -> test -> dropTestDB -> log ":)", green
 
 task 'dev', 'start dev env', ->
   # watch_coffee

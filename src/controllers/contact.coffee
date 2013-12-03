@@ -7,6 +7,7 @@ ContactController =
   # Actions
   #------------------------------------------------------------------------
   index: (req, res) ->
+    console.log 'logging it', req.query
     Card.find {_id: {$in: req.user.contacts}}, (err, data) ->
       if err
         res.status 500
@@ -15,20 +16,20 @@ ContactController =
 
   create: (req, res) ->
     card = req.body
-    console.log 'card', card
+    #console.log 'card', card
+    #console.log 'i have update', (new Date()).toISOString()
     # Add the contact to the current user
-    User.update {_id: req.user.id}, {$addToSet: {contacts: card._id}}, (err, val) ->
-      if err
-        console.log '**err**', err
-        res.status 500
-        res.send {status: 'failure', err: err}
-      # Now add current user's first(default) card to the other person
-      console.log 'userId', card.userId
-      User.update {_id: card.userId}, {$addToSet: {contacts: req.user.myCards[0]}}, (err, val) ->
-        if err
-          res.status 500
-          res.send {status: 'failure', err: err}
-        res.send {status: 'success'}
+    User.findOne {_id: req.user.id}, (err, user) ->
+      if err then res.status(500).send {status: 'failure', err: err}
+      user.contacts.push card._id
+      user.save (err) ->
+        if err then res.status(500).send {status: 'failure', err: err}
+        User.findOne {_id: card.userId}, (err, user) ->
+          if err then res.status(500).send {status: 'failure', err: err}
+          user.contacts.push req.user.myCards[0]
+          user.save (err) ->
+            if err then res.status(500).send {status: 'failure', err: err}
+            res.send {status: 'success'}
 
 
   #show: (req, res) ->

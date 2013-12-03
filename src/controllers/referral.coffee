@@ -11,10 +11,10 @@ ReferralController =
   # Gets all cards referred to the user
   index: (req, res) ->
     Referral.find {referredTo: req.user.id}, 'cardId', (err, data) ->
-      if err then res.send {err: err}
+      if err then res.status(500).send {status: 'success', err: err}
       cardIds = data.map (d) -> d.cardId
       Card.find {_id: {$in: cardIds}}, (err, cards) ->
-        if err then res.send {err: err}
+        if err then res.status(500).send {status: 'success', err: err}
         res.send {status: 'success', cards: cards}
 
 
@@ -30,21 +30,28 @@ ReferralController =
       res.send {status: 'success'}
 
 
-  delete: (req, res) ->
-    req.referral.remove (err, data) ->
+  destroy: (req, res) ->
+    #req.referral.remove (err, data) ->
+      #if err
+        #res.status 500
+        #res.send {status: 'failure', err: err}
+      #res.send {status: 'success'}
+    body = req.body
+    Referral.remove {cardId: body.cardId, referredTo: req.user.id}, (err, data) ->
       if err
         res.status 500
         res.send {status: 'failure', err: err}
       res.send {status: 'success'}
 
-  load: (req, id, fn) ->
-    res = req.res
-    Referral.findOne {_id: id, referredTo: req.user.id}, (err, data) ->
-      if err
-        res.status 500
-        res.send {status: 'failure', err: err}
-      else
-        fn null, data
+
+  #load: (req, id, fn) ->
+    #res = req.res
+    #Referral.findOne {_id: id, referredTo: req.user.id}, (err, data) ->
+      #if err
+        #res.status 500
+        #res.send {status: 'failure', err: err}
+      #else
+        #fn null, data
 
 
 module.exports = ReferralController

@@ -38,7 +38,7 @@ UserController =
       card = new Card
         firstName: 'Your'
         lastName: 'Name'
-        email: 'Your Email'
+        email: user.email
         phone: 'Your Phone'
         imageUrl: '0'
         userId: user.id
@@ -54,13 +54,15 @@ UserController =
 
   load: (req, id, fn) ->
     res = req.res
-    req.sessionID = unescape req.query.sessionId
+    sid = unescape req.query.sessionId
     # Grab the session ourselves
-    req.sessionStore.get req.sessionID, (err, data) ->
+    req.sessionStore.get sid, (err, data) ->
       if err
         req.mySession = {}
       else
         req.mySession = data
+      console.log 'dummy', req.param 'dummy'
+      console.log req.query.sessionId, sid, req.mySession, id
       if req.mySession.userId and req.mySession.userId == id
         User.findOne {_id: req.mySession.userId}, (err, data) ->
           if err
