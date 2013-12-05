@@ -12,6 +12,9 @@ schema = new Schema
   lastName  : String
   email     : String
   phone     : String
+  companyName : String
+  jobTitle : String
+  address : String
   imageUrl :
     type : String
     default : ""

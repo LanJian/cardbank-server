@@ -40,6 +40,9 @@ UserController =
         lastName: 'Name'
         email: user.email
         phone: 'Your Phone'
+        companyName: 'Your Company'
+        jobTitle: 'Your Job Title'
+        address: 'Your Address'
         imageUrl: '0'
         userId: user.id
       card.save (err) ->
