@@ -35,7 +35,8 @@ app.configure ->
     store  : store
     secret : 'topsecret'
     cookie :
-      maxAge : 5 * 60 * 1000
+      # 100 years
+      maxAge : 100 * 365 * 24 * 60 * 60 * 1000
   app.use express.logger()
 
 # MongoDB

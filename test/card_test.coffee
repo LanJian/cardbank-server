@@ -15,6 +15,9 @@ describe 'Card tests', ->
     lastName: 'last'
     email: 'email@email.com'
     phone: '111111111'
+    companyName : 'company'
+    jobTitle : 'job'
+    address : '111 fake st'
 
   userId = null
   sessionId = null
@@ -56,6 +59,9 @@ describe 'Card tests', ->
       c.should.have.property 'firstName'
       c.should.have.property 'lastName'
       c.should.have.property 'phone'
+      c.should.have.property 'companyName'
+      c.should.have.property 'jobTitle'
+      c.should.have.property 'address'
       c.should.have.property 'userId'
       c.should.have.property 'imageUrl'
       done()
@@ -90,6 +96,9 @@ describe 'Card tests', ->
         c.should.have.property('lastName').and.equal card.lastName
         c.should.have.property('email').and.equal card.email
         c.should.have.property('phone').and.equal card.phone
+        c.should.have.property('companyName').and.equal card.companyName
+        c.should.have.property('jobTitle').and.equal card.jobTitle
+        c.should.have.property('address').and.equal card.address
         c.should.have.property('userId')
         c.userId.toString().should.equal userId
         done()
@@ -129,6 +138,9 @@ describe 'Card tests', ->
         c.should.have.property('imageUrl')
         c.should.have.property('lastName').and.equal card.lastName
         c.should.have.property('email').and.equal card.email
+        c.should.have.property('companyName').and.equal card.companyName
+        c.should.have.property('jobTitle').and.equal card.jobTitle
+        c.should.have.property('address').and.equal card.address
         c.should.have.property('userId')
         c.userId.toString().should.equal userId
         done()
