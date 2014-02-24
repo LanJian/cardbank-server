@@ -117,7 +117,6 @@ describe 'Contact tests', ->
       c.should.have.property 'jobTitle'
       c.should.have.property 'address'
       c.should.have.property 'userId'
-      c.should.have.property 'imageUrl'
       done()
 
     it 'only has one contact and contains correct info', (done) ->
@@ -131,7 +130,6 @@ describe 'Contact tests', ->
       c.jobTitle.should.equal user1Card.jobTitle
       c.address.should.equal user1Card.address
       c.userId.should.equal user1Card.userId
-      c.imageUrl.should.equal user1Card.imageUrl
       done()
 
     it 'updates the timestamp', (done) ->

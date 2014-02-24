@@ -63,7 +63,6 @@ describe 'Card tests', ->
       c.should.have.property 'jobTitle'
       c.should.have.property 'address'
       c.should.have.property 'userId'
-      c.should.have.property 'imageUrl'
       done()
 
   describe 'Create card', ->
@@ -91,7 +90,6 @@ describe 'Card tests', ->
       Card.findOne card, (err, c) ->
         c.should.be.ok
         c.should.have.property('_id')
-        c.should.have.property('imageUrl')
         c.should.have.property('firstName').and.equal card.firstName
         c.should.have.property('lastName').and.equal card.lastName
         c.should.have.property('email').and.equal card.email
@@ -135,7 +133,6 @@ describe 'Card tests', ->
         c.should.be.ok
         c.should.have.property('_id')
         c._id.toString().should.equal _id
-        c.should.have.property('imageUrl')
         c.should.have.property('lastName').and.equal card.lastName
         c.should.have.property('email').and.equal card.email
         c.should.have.property('companyName').and.equal card.companyName

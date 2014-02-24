@@ -1,0 +1,73 @@
+{
+  "default_template_name": "white",
+  "white": {
+    "image_url": "templates/white.png",
+    "properties": {
+      "name": {
+        "color": "black",
+        "left": 50,
+        "top": 100
+      },
+      "phone": {
+        "color": "black",
+        "left": 50,
+        "top": 350
+      },
+      "email": {
+        "color": "black",
+        "left": 50,
+        "top": 400
+      },
+      "company": {
+        "color": "black",
+        "left": 450,
+        "top": 350
+      },
+      "address": {
+        "color": "black",
+        "left": 450,
+        "top": 400
+      },
+      "jobTitle": {
+        "color": "black",
+        "left": 450,
+        "top": 100
+      }
+    }
+  },
+  "black": {
+    "image_url": "templates/black.png",
+    "properties": {
+      "name": {
+        "color": "white",
+        "left": 50,
+        "top": 100
+      },
+      "phone": {
+        "color": "white",
+        "left": 50,
+        "top": 350
+      },
+      "email": {
+        "color": "white",
+        "left": 50,
+        "top": 400
+      },
+      "company": {
+        "color": "white",
+        "left": 450,
+        "top": 350
+      },
+      "address": {
+        "color": "white",
+        "left": 450,
+        "top": 400
+      },
+      "jobTitle": {
+        "color": "white",
+        "left": 450,
+        "top": 100
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 Card = require '../models/card'
+Template = require '../models/template'
 
 
 CardController =
@@ -8,8 +9,7 @@ CardController =
   index: (req, res) ->
     Card.find {userId: req.user.id}, null,
       {sort: ['lastName', 'descending']}, (err, data) ->
-        if err
-          res.send {status: 'failure', err: err}
+        if err then res.status(500).send {status: 'failure', err: err}
         res.send {status: 'success', updatedAt: req.user.updatedAt, cards: data}
 
 
@@ -49,4 +49,3 @@ CardController =
 
 
 module.exports = CardController
-

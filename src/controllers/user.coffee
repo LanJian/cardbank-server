@@ -8,10 +8,8 @@ UserController =
   #------------------------------------------------------------------------
   index: (req, res) ->
     if req.session.count
-      console.log ' fount'
       req.session.count = req.session.count + 1
     else
-      console.log 'not fount'
       req.session.count = 1
     res.send "index users"
 
@@ -19,32 +17,34 @@ UserController =
   show: (req, res) ->
     user = req.user
     res.send
-      status: 'success'
-      email: user.email
-      cards: user.myCards
-      contacts: user.contacts
+      status   : 'success'
+      email    : user.email
+      cards    : user.myCards
+      contacts : user.contacts
 
   create: (req, res) ->
     body = req.body
     user = new User
-      email: body.email
-      password: body.password
-      myCards: []
-      cards: []
+      email    : body.email
+      password : body.password
+      myCards  : []
+      cards    : []
 
     user.save (err, val) ->
       if err then res.status(500).send {status: 'failure', err: err}
       # create a default card
       card = new Card
-        firstName: 'Your'
-        lastName: 'Name'
-        email: user.email
-        phone: 'Your Phone'
-        companyName: 'Your Company'
-        jobTitle: 'Your Job Title'
-        address: 'Your Address'
-        imageUrl: '0'
-        userId: user.id
+        firstName      : 'Your'
+        lastName       : 'Name'
+        email          : user.email
+        phone          : 'Your Phone'
+        companyName    : 'Your Company'
+        jobTitle       : 'Your Job Title'
+        address        : 'Your Address'
+        userId         : user.id
+        templateConfig :
+          baseTemplate : 'black'
+          properties   : {}
       card.save (err) ->
         if err then res.status(500).send {status: 'failure', err: err}
         # add card id to user cards
@@ -64,8 +64,6 @@ UserController =
         req.mySession = {}
       else
         req.mySession = data
-      console.log 'dummy', req.param 'dummy'
-      console.log req.query.sessionId, sid, req.mySession, id
       if req.mySession.userId and req.mySession.userId == id
         User.findOne {_id: req.mySession.userId}, (err, data) ->
           if err
@@ -80,4 +78,3 @@ UserController =
 
 
 module.exports = UserController
-
