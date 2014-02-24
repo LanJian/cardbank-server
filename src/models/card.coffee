@@ -1,7 +1,7 @@
 mongoose = require 'mongoose'
 jsdom = require 'jsdom'
 window = jsdom.jsdom().createWindow()
-$ = require('jQuery')(window)
+$ = require('jquery')(window)
 Schema = mongoose.Schema
 ObjectId = Schema.ObjectId
 
