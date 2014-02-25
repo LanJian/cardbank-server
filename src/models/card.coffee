@@ -30,7 +30,7 @@ schema.virtual('template').get  ->
   # resolve template
   templateName = @templateConfig.baseTemplate
   if templateName == null
-    templateName = templates['default_template_name']
+    templateName = templates['defaultTemplateName']
   template = templates[templateName]
   # merge custom template config with base config
   properties = $.extend true, {},

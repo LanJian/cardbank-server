@@ -1,6 +1,4 @@
 Card = require '../models/card'
-Template = require '../models/template'
-
 
 CardController =
   #------------------------------------------------------------------------

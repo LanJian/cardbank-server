@@ -1,70 +1,70 @@
 {
-  "default_template_name": "white",
+  "defaultTemplateName": "white",
   "white": {
-    "image_url": "templates/white.png",
+    "imageUrl": "templates/white.png",
     "properties": {
       "name": {
-        "color": "black",
+        "color": "#000000",
         "left": 50,
         "top": 100
       },
       "phone": {
-        "color": "black",
+        "color": "#000000",
         "left": 50,
         "top": 350
       },
       "email": {
-        "color": "black",
+        "color": "#000000",
         "left": 50,
         "top": 400
       },
-      "company": {
-        "color": "black",
+      "companyName": {
+        "color": "#000000",
         "left": 450,
         "top": 350
       },
       "address": {
-        "color": "black",
+        "color": "#000000",
         "left": 450,
         "top": 400
       },
       "jobTitle": {
-        "color": "black",
+        "color": "#000000",
         "left": 450,
         "top": 100
       }
     }
   },
   "black": {
-    "image_url": "templates/black.png",
+    "imageUrl": "templates/black.png",
     "properties": {
       "name": {
-        "color": "white",
+        "color": "#FFFFFF",
         "left": 50,
         "top": 100
       },
       "phone": {
-        "color": "white",
+        "color": "#FFFFFF",
         "left": 50,
         "top": 350
       },
       "email": {
-        "color": "white",
+        "color": "#FFFFFF",
         "left": 50,
         "top": 400
       },
-      "company": {
-        "color": "white",
+      "companyName": {
+        "color": "#FFFFFF",
         "left": 450,
         "top": 350
       },
       "address": {
-        "color": "white",
+        "color": "#FFFFFF",
         "left": 450,
         "top": 400
       },
       "jobTitle": {
-        "color": "white",
+        "color": "#FFFFFF",
         "left": 450,
         "top": 100
       }

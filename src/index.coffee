@@ -49,6 +49,7 @@ users = app.resource 'users', require('./controllers/user')
 cards = app.resource 'cards', require('./controllers/card')
 contacts = app.resource 'contacts', require('./controllers/contact')
 referrals = app.resource 'referrals', require('./controllers/referral')
+templates = app.resource 'templates', require('./controllers/template')
 users.add cards
 users.add contacts
 users.add referrals
