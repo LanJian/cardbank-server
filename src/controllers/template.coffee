@@ -6,6 +6,11 @@ TemplateController =
   # Actions
   #------------------------------------------------------------------------
   index: (req, res) ->
-    res.send templates
+    ret = []
+    for k,v of templates
+      if k != 'defaultTemplateName'
+        v.templateName = k
+        ret.push v
+    res.send ret
 
 module.exports = TemplateController
