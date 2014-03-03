@@ -1,6 +1,27 @@
 Cardbank server
 
-API:
+## Development
+
+Install node 0.10.25 (with npm 1.3.24), and mongodb, then in the project directory:
+
+    npm install
+    heroku git:remote -a project
+  
+To run the server:
+  
+    sudo mongod --nojournal
+    NODE_ENV=dev cake dev
+  
+To run tests:
+
+    sudo mongod --nojournal
+    NODE_ENV=test cake test
+  
+Push to production:
+
+    git push heroku master
+
+## API:
 
 ##### Create user
 
