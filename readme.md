@@ -6,7 +6,7 @@ Install [Node 0.10.25 (with npm 1.3.24)](http://nodejs.org/dist/v0.10.25/node-v0
 Then do the following setup in the project directory:
 
     npm install
-    heroku git:remote -a project
+    heroku git:remote -a 'cardbeam-server'
   
 To run the server:
   
