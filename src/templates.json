@@ -6,32 +6,32 @@
       "name": {
         "color": "#000000",
         "left": 0.065,
-        "top": 0.24
+        "top": 0.14
       },
       "phone": {
         "color": "#000000",
         "left": 0.065,
-        "top": 0.841
+        "top": 0.741
       },
       "email": {
         "color": "#000000",
         "left": 0.065,
-        "top": 0.961
+        "top": 0.861
       },
       "companyName": {
         "color": "#000000",
         "left": 0.586,
-        "top": 0.841
+        "top": 0.741
       },
       "address": {
         "color": "#000000",
         "left": 0.586,
-        "top": 0.961
+        "top": 0.861
       },
       "jobTitle": {
         "color": "#000000",
         "left": 0.586,
-        "top": 0.24
+        "top": 0.14
       }
     }
   },
@@ -41,32 +41,32 @@
       "name": {
         "color": "#FFFFFF",
         "left": 0.065,
-        "top": 0.24
+        "top": 0.14
       },
       "phone": {
         "color": "#FFFFFF",
         "left": 0.065,
-        "top": 0.841
+        "top": 0.741
       },
       "email": {
         "color": "#FFFFFF",
         "left": 0.065,
-        "top": 0.961
+        "top": 0.861
       },
       "companyName": {
         "color": "#FFFFFF",
         "left": 0.586,
-        "top": 0.841
+        "top": 0.741
       },
       "address": {
         "color": "#FFFFFF",
         "left": 0.586,
-        "top": 0.961
+        "top": 0.861
       },
       "jobTitle": {
         "color": "#FFFFFF",
         "left": 0.586,
-        "top": 0.24
+        "top": 0.14
       }
     }
   }
