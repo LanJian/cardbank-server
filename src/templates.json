@@ -4,32 +4,32 @@
     "imageUrl": "templates/white.png",
     "properties": {
       "name": {
-        "color": "#FFFFFF",
+        "color": "#000000",
         "left": 0.065,
         "top": 0.09
       },
       "phone": {
-        "color": "#FFFFFF",
+        "color": "#000000",
         "left": 0.065,
         "top": 0.81
       },
       "email": {
-        "color": "#FFFFFF",
+        "color": "#000000",
         "left": 0.065,
         "top": 0.69
       },
       "companyName": {
-        "color": "#FFFFFF",
+        "color": "#000000",
         "left": 0.59,
         "top": 0.69
       },
       "address": {
-        "color": "#FFFFFF",
+        "color": "#000000",
         "left": 0.59,
         "top": 0.81
       },
       "jobTitle": {
-        "color": "#FFFFFF",
+        "color": "#000000",
         "left": 0.59,
         "top": 0.09
       }
