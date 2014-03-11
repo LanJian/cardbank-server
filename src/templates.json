@@ -91,7 +91,7 @@
       "address": {
         "color": "#FFFFFF",
         "left": 0.10,
-        "top": 0.85
+        "top": 0.80
       },
       "phone": {
         "color": "#FFFFFF",
@@ -101,7 +101,7 @@
       "email": {
         "color": "#FFFFFF",
         "left": 0.60,
-        "top": 0.85
+        "top": 0.80
       }
       
     }
