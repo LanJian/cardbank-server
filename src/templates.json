@@ -69,5 +69,41 @@
         "top": 0.09
       }
     }
+  },
+  "blue_wave": {
+    "imageUrl": "templates/blue_wave.png",
+    "properties": {
+      "name": {
+        "color": "#FFFFFF",
+        "left": 0.10,
+        "top": 0.10
+      },
+      "jobTitle": {
+        "color": "#FFFFFF",
+        "left": 0.10,
+        "top": 0.25
+      },
+      "companyName": {
+        "color": "#FFFFFF",
+        "left": 0.10,
+        "top": 0.70
+      },
+      "address": {
+        "color": "#FFFFFF",
+        "left": 0.10,
+        "top": 0.85
+      },
+      "phone": {
+        "color": "#FFFFFF",
+        "left": 0.60,
+        "top": 0.70
+      },
+      "email": {
+        "color": "#FFFFFF",
+        "left": 0.60,
+        "top": 0.85
+      }
+      
+    }
   }
 }
