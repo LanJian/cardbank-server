@@ -37,7 +37,7 @@ UserController =
         firstName      : 'Your'
         lastName       : 'Name'
         email          : user.email
-        phone          : 'Your Phone'
+        phone          : '0000000000'
         companyName    : 'Your Company'
         jobTitle       : 'Your Job Title'
         address        : 'Your Address'
