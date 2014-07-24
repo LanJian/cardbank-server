@@ -22,17 +22,24 @@ EventController =
 
     # Joining an event
     if body.eventId
-        body.event = body.eventId
-        body.member = user.id
+        Event.find {_id: body.eventId}, null, {}, (err, data) ->
+          if not data
+              res.send {status: 'bad request', err: 'Event not found'} if err
 
-        delete body.eventName
-        delete body.eventId
+          if err
+              res.send {status: 'failure', err: err}
 
-        eventMember = new EventMember body
+          body.event = body.eventId
+          body.member = user.id
 
-        eventMember.save (err) ->
-          if err then res.status(500).send {status: 'failure', err: err}
-          res.send {status: 'success'}
+          delete body.eventName
+          delete body.eventId
+
+          eventMember = new EventMember body
+
+          eventMember.save (err) ->
+            if err then res.status(500).send {status: 'failure', err: err}
+            res.send {status: 'success'}
 
     # Creating an event
     else
