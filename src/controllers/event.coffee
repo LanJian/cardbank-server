@@ -7,13 +7,13 @@ EventController =
   #------------------------------------------------------------------------
   index: (req, res) ->
     EventMember.find {member: req.user.id}, null, {}, (err, data) ->
-        idFilter = data.map (em) -> _id: em.event
-        eventFilter = idFilter.concat([{createdBy: req.user.id}])
+      idFilter = data.map (em) -> _id: em.event
+      eventFilter = idFilter.concat([{createdBy: req.user.id}])
 
-        Event.find {$or: eventFilter}, null,
-          {sort: ['eventName', 'descending']}, (err, data) ->
-            res.send {status: 'failure', err: err} if err
-            res.send {status: 'success', updatedAt: req.user.updatedAt, events: data}
+      Event.find {$or: eventFilter}, null,
+        {sort: ['eventName', 'descending']}, (err, data) ->
+          res.send {status: 'failure', err: err} if err
+          res.send {status: 'success', updatedAt: req.user.updatedAt, events: data}
 
 
   create: (req, res) ->
@@ -22,35 +22,35 @@ EventController =
 
     # Joining an event
     if body.eventId
-        Event.find {_id: body.eventId}, null, {}, (err, data) ->
-          if not data
-              res.send {status: 'bad request', err: 'Event not found'} if err
+      Event.find {_id: body.eventId}, null, {}, (err, data) ->
+        if not data
+          res.send {status: 'bad request', err: 'Event not found'} if err
 
-          if err
-              res.send {status: 'failure', err: err}
+        if err
+          res.send {status: 'failure', err: err}
 
-          body.event = body.eventId
-          body.member = user.id
+        body.event = body.eventId
+        body.member = user.id
 
-          delete body.eventName
-          delete body.eventId
+        delete body.eventName
+        delete body.eventId
 
-          eventMember = new EventMember body
+        eventMember = new EventMember body
 
-          eventMember.save (err) ->
-            if err then res.status(500).send {status: 'failure', err: err}
-            res.send {status: 'success'}
+        eventMember.save (err) ->
+          if err then res.status(500).send {status: 'failure', err: err}
+          res.send {status: 'success'}
 
     # Creating an event
     else
-        delete body.eventId
+      delete body.eventId
 
-        body.createdBy = user.id
-        event = new Event body
+      body.createdBy = user.id
+      event = new Event body
 
-        event.save (err) ->
-          if err then res.status(500).send {status: 'failure', err: err}
-          res.send {status: 'success'}
+      event.save (err) ->
+        if err then res.status(500).send {status: 'failure', err: err}
+        res.send {status: 'success'}
 
 
   update: (req, res) ->
