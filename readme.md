@@ -56,7 +56,7 @@ You can verify the status of the production server with Heroku commands. The fol
 
 #### Create an event or join an event
 
-- ** POST /users/:id/events **
+- **POST /users/:id/events**
   eventId: [eventId] Specify eventId for joining existing event
   eventName: [eventName] Specify eventName for creating event
 
@@ -70,4 +70,4 @@ You can verify the status of the production server with Heroku commands. The fol
 
 ### Get events created or joined by user
 
-- ** GET /users/:id/events**
+- **GET /users/:id/events**
