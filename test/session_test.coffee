@@ -46,7 +46,7 @@ describe 'Session test', ->
           done()
 
       it 'is successful', (done) ->
-        response.should.have.status 200
+        response.should.have.property('statusCode').and.equal 200
         res.should.have.property 'status'
         res.status.should.equal 'success'
         done()
@@ -66,7 +66,7 @@ describe 'Session test', ->
           done()
 
       it 'is failure', (done) ->
-        response.should.have.status 403
+        response.should.have.property('statusCode').and.equal 403
         res.should.have.property 'status'
         res.status.should.equal 'failure'
         done()
@@ -81,7 +81,7 @@ describe 'Session test', ->
           done()
 
       it 'is failure', (done) ->
-        response.should.have.status 403
+        response.should.have.property('statusCode').and.equal 403
         res.should.have.property 'status'
         res.status.should.equal 'failure'
         done()

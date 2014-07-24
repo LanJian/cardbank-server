@@ -28,7 +28,7 @@ describe 'User tests', ->
         done()
 
     it 'is successful', (done) ->
-      response.should.have.status 200
+      response.should.have.property('statusCode').and.equal 200
       res.should.have.property 'status'
       res.status.should.equal 'success'
       done()
