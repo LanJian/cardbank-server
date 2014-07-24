@@ -31,43 +31,43 @@ You can verify the status of the production server with Heroku commands. The fol
 
 ##### Create user
 
-- **POST /users**
-  email    : [email]
+- **POST /users**  
+  email    : [email]  
   password : [password]
 
 ##### Create session (authenticate)
 
-- **POST /sessions**
-  email    : [email]
+- **POST /sessions**  
+  email    : [email]  
   password : [password]
 
 ##### Create card for user
 
-- **POST /users/:id/cards**
-  firstName : [firstName]
-  lastName  : [lastName]
-  email     : [email]
+- **POST /users/:id/cards?sessionId="sessionId"**  
+  firstName : [firstName]  
+  lastName  : [lastName]  
+  email     : [email]  
   phone     : [phone]
 
 ##### Create contact for user
 
-- **POST /users/:id/contacts**
+- **POST /users/:id/contacts?sessionId="sessionId"**  
   cardId : [cardId]
 
 #### Create an event or join an event
 
-- **POST /users/:id/events**
-  eventId: [eventId] Specify eventId for joining existing event
+- **POST /users/:id/events?sessionId="sessionId"**  
+  eventId: [eventId] Specify eventId for joining existing event  
   eventName: [eventName] Specify eventName for creating event
 
 ##### Get a list of user's cards
 
-- **GET /users/:id/cards**
+- **GET /users/:id/cards?sessionId="sessionId"**
 
 ##### Get a list of user's contacts
 
-- **GET /users/:id/contacts**
+- **GET /users/:id/contacts?sessionId="sessionId"**
 
 ### Get events created or joined by user
 
-- **GET /users/:id/events**
+- **GET /users/:id/events?sessionId="sessionId"**
