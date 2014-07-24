@@ -50,9 +50,12 @@ cards = app.resource 'cards', require('./controllers/card')
 contacts = app.resource 'contacts', require('./controllers/contact')
 referrals = app.resource 'referrals', require('./controllers/referral')
 templates = app.resource 'templates', require('./controllers/template')
+events = app.resource 'events', require('./controllers/event')
+
 users.add cards
 users.add contacts
 users.add referrals
+users.add events
 
 sessions = app.resource 'sessions', require('./controllers/session')
 

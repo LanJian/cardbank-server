@@ -1,5 +1,6 @@
 User = require '../models/user'
 Card = require '../models/card'
+Event = require '../models/event'
 
 
 UserController =
@@ -8,8 +9,10 @@ UserController =
   #------------------------------------------------------------------------
   index: (req, res) ->
     if req.session.count
+      console.log ' found'
       req.session.count = req.session.count + 1
     else
+      console.log 'not found'
       req.session.count = 1
     res.send "index users"
 
