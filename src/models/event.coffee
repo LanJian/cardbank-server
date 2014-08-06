@@ -8,8 +8,14 @@ ObjectId = Schema.ObjectId
 ##########################################################################
 # TODO: validate
 schema = new Schema
-  eventName: String
-  createdBy: ObjectId
+  eventName  : String
+  createdBy  : ObjectId
+  owner      : ObjectId
+  host       : ObjectId
+  location   : String
+  startTime  : Date
+  endTime    : Date
+  expiryTime : Date
 
 ##########################################################################
 ## Model
