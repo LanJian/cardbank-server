@@ -45,7 +45,7 @@ EventController =
         createdBy  : user.id
         owner      : body.owner || user.id
         host       : body.host || user.id
-        location   : body.location
+        location   : body.location || ""
         startTime  : body.startTime || now.setDate(now.getDate() + 1)
         endTime    : body.startTime || now.setDate(now.getDate() + 2)
         expiryTime : body.startTime || now.setDate(now.getDate() + 9)
