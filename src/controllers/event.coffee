@@ -29,13 +29,9 @@ EventController =
         if err
           res.send {status: 'failure', err: err}
 
-        body.event = body.eventId
-        body.member = user.id
-
-        delete body.eventName
-        delete body.eventId
-
-        eventMember = new EventMember body
+        eventMember = new EventMember
+          event: body.eventId
+          member: user.id
 
         eventMember.save (err) ->
           if err then res.status(500).send {status: 'failure', err: err}
@@ -43,14 +39,20 @@ EventController =
 
     # Creating an event
     else
-      delete body.eventId
-
-      body.createdBy = user.id
-      event = new Event body
+      now = new Date()
+      event = new Event
+        eventName  : body.eventName
+        createdBy  : user.id
+        owner      : body.owner || user.id
+        host       : body.host || user.id
+        location   : body.location
+        startTime  : body.startTime || now.setDate(now.getDate() + 1)
+        endTime    : body.startTime || now.setDate(now.getDate() + 2)
+        expiryTime : body.startTime || now.setDate(now.getDate() + 9)
 
       event.save (err) ->
         if err then res.status(500).send {status: 'failure', err: err}
-        res.send {status: 'success'}
+        res.send {status: 'success', eventId: event.id}
 
 
   update: (req, res) ->
