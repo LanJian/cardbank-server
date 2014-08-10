@@ -72,7 +72,7 @@ You can verify the status of the production server with Heroku commands. The fol
   endTime    : Date  
   expiryTime : Date
 
-  e.g.: `curl "localhost:3000/users/53cb01835bc118851e000003/events?sessionId=4fU%2BfHzuYs9vMEWtqvdoj8%2Ft" --data "eventName=Convocation" --data "location=Great Hall" --data "host=UofW" --data "owner=53cb01835bc118851e000003" --data "endTime=1407628740000" --data "startTime=1407560640000`
+  e.g.: `curl "localhost:3000/users/53cb01835bc118851e000003/events?sessionId=4fU%2BfHzuYs9vMEWtqvdoj8%2Ft" --data "eventName=Convocation" --data "location=Great Hall" --data "host=UofW" --data "owner=53cb01835bc118851e000003" --data "endTime=1407628740000" --data "startTime=1407560640000"`
 
 ##### Join an event
 
