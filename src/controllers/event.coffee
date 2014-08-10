@@ -12,8 +12,8 @@ EventController =
 
       Event.find {$or: eventFilter}, null,
         {sort: ['eventName', 'descending']}, (err, data) ->
-          res.send {status: 'failure', err: err} if err
-          res.send {status: 'success', updatedAt: req.user.updatedAt, events: data}
+          return res.send {status: 'failure', err: err} if err
+          return res.send {status: 'success', updatedAt: req.user.updatedAt, events: data}
 
 
   create: (req, res) ->
@@ -24,43 +24,59 @@ EventController =
     if body.eventId
       Event.find {_id: body.eventId}, null, {}, (err, data) ->
         if not data
-          res.send {status: 'bad request', err: 'Event not found'} if err
+          return res.send {status: 'bad request', err: 'Event not found'} if err
 
         if err
-          res.send {status: 'failure', err: err}
+          return res.send {status: 'failure', err: err}
 
         eventMember = new EventMember
           event: body.eventId
           member: user.id
 
         eventMember.save (err) ->
-          if err then res.status(500).send {status: 'failure', err: err}
-          res.send {status: 'success'}
+          if err then return res.status(500).send {status: 'failure', err: err}
+          return res.send {status: 'success'}
 
     # Creating an event
     else
-      now = new Date()
+      d = new Date()
+      d.setDate(d.getDate() + 1)
+      startTime = parseInt(body.startTime) || d.getTime()
+      
+      d = new Date(startTime)
+      d.setDate(d.getDate() + 1)
+      endTime = parseInt(body.endTime) || d.getTime()
+
+      d = new Date(endTime)
+      d.setDate(d.getDate() + 7)
+      expiryTime = parseInt(body.expiryTime) || d.getTime()
+
+      if startTime > endTime || endTime > expiryTime
+        return res.status(500).send
+          status: 'failure',
+          err: 'startTime, endTime, expiryTime should be in ascending order'
+
       event = new Event
         eventName  : body.eventName
         createdBy  : user.id
         owner      : body.owner || user.id
-        host       : body.host || user.id
+        host       : body.host || ""
         location   : body.location || ""
-        startTime  : body.startTime || now.setDate(now.getDate() + 1)
-        endTime    : body.startTime || now.setDate(now.getDate() + 2)
-        expiryTime : body.startTime || now.setDate(now.getDate() + 9)
+        startTime  : startTime
+        endTime    : endTime
+        expiryTime : expiryTime
 
       event.save (err) ->
-        if err then res.status(500).send {status: 'failure', err: err}
-        res.send {status: 'success', eventId: event.id}
+        if err then return res.status(500).send {status: 'failure', err: err}
+        return res.send {status: 'success', eventId: event.id}
 
 
   update: (req, res) ->
     delete req.body._id
     user = req.user
     req.event.update req.body, (err, numAffected, raw) ->
-      if err then res.status(500).send {status: 'failure', err: err}
-      res.send {status: 'success'}
+      if err then return res.status(500).send {status: 'failure', err: err}
+      return res.send {status: 'success'}
 
 
   load: (req, id, fn) ->

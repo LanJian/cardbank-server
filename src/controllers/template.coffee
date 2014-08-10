@@ -11,6 +11,6 @@ TemplateController =
       if k != 'defaultTemplateName'
         v.templateName = k
         ret.push v
-    res.send ret
+    return res.send ret
 
 module.exports = TemplateController

@@ -32,33 +32,52 @@ You can verify the status of the production server with Heroku commands. The fol
 ##### Create user
 
 - **POST /users**  
-  email    : [email]  
-  password : [password]
+  email    : String  
+  password : String
 
 ##### Create session (authenticate)
 
 - **POST /sessions**  
-  email    : [email]  
-  password : [password]
+  email    : String  
+  password : String
 
 ##### Create card for user
 
 - **POST /users/:id/cards?sessionId="sessionId"**  
-  firstName : [firstName]  
-  lastName  : [lastName]  
-  email     : [email]  
-  phone     : [phone]
+  firstName   : String  
+  lastName    : String  
+  email       : String  
+  phone       : String  
+  companyName : String  
+  jobTitle    : String  
+  address     : String  
+  templateConfig:  
+    baseTemplate: String  
+    properties: {}
 
 ##### Create contact for user
 
 - **POST /users/:id/contacts?sessionId="sessionId"**  
-  cardId : [cardId]
+  _id    : String (the contact's card's id)  
+  userId : String (the contact's userId)
 
-#### Create an event or join an event
+##### Create an event
 
 - **POST /users/:id/events?sessionId="sessionId"**  
-  eventId: [eventId] Specify eventId for joining existing event  
-  eventName: [eventName] Specify eventName for creating event
+  eventName  : String  
+  owner      : ObjectId  
+  host       : String  
+  location   : String  
+  startTime  : Date  
+  endTime    : Date  
+  expiryTime : Date
+
+  e.g.: `curl "localhost:3000/users/53cb01835bc118851e000003/events?sessionId=4fU%2BfHzuYs9vMEWtqvdoj8%2Ft" --data "eventName=Convocation" --data "location=Great Hall" --data "host=UofW" --data "owner=53cb01835bc118851e000003" --data "endTime=1407628740000" --data "startTime=1407560640000`
+
+##### Join an event
+
+- **POST /users/:id/events?sessionId="sessionId"**  
+  eventId : String
 
 ##### Get a list of user's cards
 
@@ -68,6 +87,6 @@ You can verify the status of the production server with Heroku commands. The fol
 
 - **GET /users/:id/contacts?sessionId="sessionId"**
 
-### Get events created or joined by user
+##### Get events created or joined by user
 
 - **GET /users/:id/events?sessionId="sessionId"**

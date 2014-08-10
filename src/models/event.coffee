@@ -11,7 +11,7 @@ schema = new Schema
   eventName  : String
   createdBy  : ObjectId
   owner      : ObjectId
-  host       : ObjectId
+  host       : String
   location   : String
   startTime  : Date
   endTime    : Date

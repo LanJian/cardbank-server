@@ -14,12 +14,12 @@ UserController =
     else
       console.log 'not found'
       req.session.count = 1
-    res.send "index users"
+    return res.send "index users"
 
 
   show: (req, res) ->
     user = req.user
-    res.send
+    return res.send
       status   : 'success'
       email    : user.email
       cards    : user.myCards
@@ -34,7 +34,7 @@ UserController =
       cards    : []
 
     user.save (err, val) ->
-      if err then res.status(500).send {status: 'failure', err: err}
+      if err then return res.status(500).send {status: 'failure', err: err}
       # create a default card
       card = new Card
         firstName      : 'Your'
@@ -49,13 +49,13 @@ UserController =
           baseTemplate : 'black'
           properties   : {}
       card.save (err) ->
-        if err then res.status(500).send {status: 'failure', err: err}
+        if err then return res.status(500).send {status: 'failure', err: err}
         # add card id to user cards
         user.myCards.push card.id
         user.save (err) ->
-          if err then res.status(500).send {status: 'failure', err: err}
+          if err then return res.status(500).send {status: 'failure', err: err}
           req.session.userId = user.id
-          res.send {status: 'success', userId: user.id, sessionId: encodeURIComponent req.sessionID}
+          return res.send {status: 'success', userId: user.id, sessionId: encodeURIComponent req.sessionID}
 
 
   load: (req, id, fn) ->
@@ -71,12 +71,12 @@ UserController =
         User.findOne {_id: req.mySession.userId}, (err, data) ->
           if err
             res.status 500
-            res.send {status: 'failure', err: err}
+            return res.send {status: 'failure', err: err}
           else
             fn null, data
       else
         res.status 403
-        res.send {status: 'failure', err: 'not authenticated'}
+        return res.send {status: 'failure', err: 'not authenticated'}
 
 
 
