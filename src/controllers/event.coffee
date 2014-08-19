@@ -42,7 +42,7 @@ EventController =
       d = new Date()
       d.setDate(d.getDate() + 1)
       startTime = parseInt(body.startTime) || d.getTime()
-      
+
       d = new Date(startTime)
       d.setDate(d.getDate() + 1)
       endTime = parseInt(body.endTime) || d.getTime()
@@ -86,8 +86,15 @@ EventController =
         res.status 500
         res.send {status: 'failure', err: err}
       else
-        fn null, data
+        EventMember.find {event: id}, null, {}, (err, members) ->
 
+          # Check that the member is in contact list
+          members.forEach (member) ->
+            member.isContact = members.id in req.user.contacts
+
+          # Assign members to the json data
+          data.members = members
+
+          fn null, data
 
 module.exports = EventController
-
