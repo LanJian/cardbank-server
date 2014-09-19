@@ -9,7 +9,8 @@ ObjectId = Schema.ObjectId
 # TODO: validate
 schema = new Schema
   event: ObjectId
-  member: ObjectId
+  userId: ObjectId
+  isContact: Boolean
 
 ##########################################################################
 ## Model

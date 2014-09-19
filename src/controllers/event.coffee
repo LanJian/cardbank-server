@@ -16,6 +16,15 @@ EventController =
           return res.send {status: 'success', updatedAt: req.user.updatedAt, events: data}
 
 
+  show: (req, res) ->
+    event = req.event
+    ret = event.data.toObject()
+    ret.members = event.members
+    return res.send
+      status : 'success'
+      event  : ret
+
+
   create: (req, res) ->
     user = req.user
     body = req.body
@@ -31,7 +40,7 @@ EventController =
 
         eventMember = new EventMember
           event: body.eventId
-          member: user.id
+          userId: user.id
 
         eventMember.save (err) ->
           if err then return res.status(500).send {status: 'failure', err: err}
@@ -90,11 +99,11 @@ EventController =
 
           # Check that the member is in contact list
           members.forEach (member) ->
-            member.isContact = members.id in req.user.contacts
+            member.isContact = member.id in req.user.contacts
 
           # Assign members to the json data
           data.members = members
 
-          fn null, data
+          fn null, {data: data, members: members}
 
 module.exports = EventController
